@@ -1,15 +1,21 @@
-package counter
+package counter.store
 
 import simpleflux.{Action, AppDispatcher}
 
 /**
   * Created by rick on 2017/6/26.
   */
-case class IncrementAction(val counterCaption: String, val actionType: String = "Increment") extends Action
+case class IncrementAction(val counterCaption: String) extends Action{
+    override val actionType: String = CounterStoreActions.Increment
+}
 
-case class DecrementAction(val counterCaption: String, val actionType: String = "Decrement") extends Action
+case class DecrementAction(val counterCaption: String) extends Action {
+    override val actionType: String = CounterStoreActions.Decrement
+}
 
 object CounterStoreActions {
+    val Increment = "Increment"
+    val Decrement = "Decrement"
     def increment(counterCaption: String): Unit = {
         AppDispatcher.dispatch(IncrementAction(counterCaption))
     }

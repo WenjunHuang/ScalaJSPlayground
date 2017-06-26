@@ -1,5 +1,6 @@
 package counter.store
 
+import CounterStoreActions
 import simpleflux.EventEmmiter
 
 import scala.collection.mutable
@@ -9,7 +10,9 @@ import scala.collection.mutable
   */
 
 
-class CounterStore extends EventEmmiter {
+
+object CounterStore extends EventEmmiter {
+    val CounterChangedEvent = "CounterChangedEvent"
     var DispatchToken: String = null
 
     val counterValues = mutable.Map("First" -> 0, "Second" -> 10, "Third" -> 30)

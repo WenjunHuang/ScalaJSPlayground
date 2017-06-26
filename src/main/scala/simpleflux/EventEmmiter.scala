@@ -22,6 +22,7 @@ abstract class EventEmmiter {
         callbacks.get(event) match {
             case Some(list) =>
                 callbacks.put(event, list.filter(_ != callback))
+            case None =>
         }
         this
     }

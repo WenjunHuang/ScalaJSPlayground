@@ -13,5 +13,6 @@ lazy val root = (project in file(".")).
         libraryDependencies += scalaTest % Test,
         npmDependencies in Compile ++= Seq(
             "react" -> "15.5.4",
-            "react-dom" -> "15.5.4")
+            "react-dom" -> "15.5.4"),
+      webpackDevServerExtraArgs := Seq("--content-base","../../classes")
     )

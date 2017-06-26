@@ -1,7 +1,6 @@
 package example
 
-import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^._
+import counter.view.Counter
 import org.scalajs.dom._
 
 import scala.scalajs.js.JSApp
@@ -9,23 +8,20 @@ import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("Hello")
 object Hello extends JSApp with Greeting {
-    override def main(): Unit = {
-        val HelloMessage = ScalaComponent.builder[String]("HelloMessage")
-            .render($ => <.div("Hello ", $.props))
-            .build
+  override def main(): Unit = {
+    val component = Counter.component
+    component(new Counter.Props("First")).renderIntoDOM(document.getElementById("app"))
+  }
 
-        HelloMessage("John").renderIntoDOM(document.getElementById("app"))
-    }
+  @JSExport
+  def main(canvas: html.Canvas): Unit = {
+  }
 
-    @JSExport
-    def main(canvas: html.Canvas): Unit = {
-    }
-
-    def foo(): Unit = {
-        println("hello foo")
-    }
+  def foo(): Unit = {
+    println("hello foo")
+  }
 }
 
 trait Greeting {
-    lazy val greeting: String = "hello"
+  lazy val greeting: String = "hello"
 }
