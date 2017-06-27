@@ -39,6 +39,7 @@ abstract class EventEmmiter {
     }
 
     def emit(event: String): Unit = {
+        println(s"emit $event")
         for {
             list <- callbacks.get(event)
             callback <- list

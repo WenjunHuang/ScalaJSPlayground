@@ -1,16 +1,22 @@
 package example
 
-import counter.view.Counter
+import counter.store.{CounterStore, CounterStoreActions, SummaryStore, SummaryStoreActions}
+import counter.view.ControlPanel
 import org.scalajs.dom._
+import simpleflux.AppDispatcher
 
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
 @JSExportTopLevel("Hello")
 object Hello extends JSApp with Greeting {
+
   override def main(): Unit = {
-    val component = Counter.component
-    component(new Counter.Props("First")).renderIntoDOM(document.getElementById("app"))
+    CounterStore.DispatchToken = AppDispatcher.register(CounterStoreActions.counterActions)
+    SummaryStore.DispatchToken = AppDispatcher.register(SummaryStoreActions.sumaryActions)
+
+    val component = ControlPanel.component
+    component().renderIntoDOM(document.getElementById("app"))
   }
 
   @JSExport

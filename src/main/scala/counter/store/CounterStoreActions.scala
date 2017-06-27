@@ -25,9 +25,10 @@ object CounterStoreActions {
     }
 
     def counterActions(action:Action): Unit = {
+        println("called counterActions")
         action match {
-            case _:IncrementAction => increment(action.actionType)
-            case _:DecrementAction => decrement(action.actionType)
+            case inc:IncrementAction => CounterStore.incrementByOne(inc.counterCaption)
+            case inc:DecrementAction => CounterStore.decrementByOne(inc.counterCaption)
         }
     }
 
