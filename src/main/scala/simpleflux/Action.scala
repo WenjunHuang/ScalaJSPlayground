@@ -5,4 +5,5 @@ package simpleflux
   */
 trait Action {
     val actionType:String
+    val counterCaption:String
 }

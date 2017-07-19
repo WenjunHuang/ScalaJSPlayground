@@ -1,6 +1,6 @@
 package counter.view
 
-import counter.store.SummaryStore
+import counter.store.CounterStore
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{Callback, ScalaComponent}
 
@@ -9,10 +9,10 @@ import japgolly.scalajs.react.{Callback, ScalaComponent}
   */
 object ControlPanel {
 
-  case class State(var sum: Int = 0)
+  case class State(sum:Int)
 
   val component = ScalaComponent.builder[Unit]("No args")
-    .initialState(new State(SummaryStore.getSummary()))
+    .initialState(State(CounterStore.getState.foldLeft(0) { (accum, it) => accum + it._2 }))
     .render_S(state =>
       <.div(
         Counter.component(new Counter.Props("First")),
@@ -26,11 +26,12 @@ object ControlPanel {
     )
     .componentDidMount { mount =>
       Callback {
-        val modCb = mount.modState({ state =>
-          state.copy(sum = SummaryStore.getSummary())
-        })
-        SummaryStore.addChangeListener { () =>
-          modCb.runNow()
+        val callback = mount.modState {_ =>
+          State(CounterStore.getState.foldLeft(0) { (accum, it) => accum + it._2 })
+        }
+        CounterStore.addChangeListener { () =>
+//          modCb.runNow()
+          callback.runNow()
         }
       }
     }

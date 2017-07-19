@@ -9,13 +9,13 @@ import japgolly.scalajs.react.vdom.html_<^._
   */
 object Counter {
 
-  case class Props(val caption: String)
+  case class Props(caption: String)
 
-  case class State(val caption: String, val counter: Int = 0)
+  case class State(caption: String, counter: Int)
 
   val component = ScalaComponent.builder[Props]("Counter")
     .initialStateFromProps { props =>
-      new State(props.caption, CounterStore.counterValues.getOrElse(props.caption, 0))
+      new State(props.caption, CounterStore.getState(props.caption))
     }
     .render_S { state =>
       <.div(
@@ -41,9 +41,9 @@ object Counter {
     }
     .componentDidMount { mount =>
       Callback {
-        val modCb = mount.modState({ state =>
-          state.copy(counter = CounterStore.counterValues(state.caption))
-        })
+        val modCb = mount.modState{ state =>
+          state.copy(counter = CounterStore.getState(state.caption))
+        }
         CounterStore.addChangeListener { () =>
           modCb.runNow()
         }

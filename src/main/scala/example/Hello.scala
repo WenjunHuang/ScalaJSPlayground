@@ -1,9 +1,8 @@
 package example
 
-import counter.store.{CounterStore, CounterStoreActions, SummaryStore, SummaryStoreActions}
+import counter.store.{CounterStore, CounterStoreActions}
 import counter.view.ControlPanel
 import org.scalajs.dom._
-import simpleflux.AppDispatcher
 
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
@@ -12,8 +11,8 @@ import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 object Hello extends JSApp with Greeting {
 
   override def main(): Unit = {
-    CounterStore.DispatchToken = AppDispatcher.register(CounterStoreActions.counterActions)
-    SummaryStore.DispatchToken = AppDispatcher.register(SummaryStoreActions.sumaryActions)
+//    CounterStore.DispatchToken = AppDispatcher.register(CounterStoreActions.counterActions)
+//    SummaryStore.DispatchToken = AppDispatcher.register(SummaryStoreActions.sumaryActions)
 
     val component = ControlPanel.component
     component().renderIntoDOM(document.getElementById("app"))
