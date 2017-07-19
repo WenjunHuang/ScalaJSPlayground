@@ -15,9 +15,9 @@ object ControlPanel {
     .initialState(State(CounterStore.getState.foldLeft(0) { (accum, it) => accum + it._2 }))
     .render_S(state =>
       <.div(
-        Counter.component(new Counter.Props("First")),
-        Counter.component(new Counter.Props("Second")),
-        Counter.component(new Counter.Props("Third")),
+        CounterContainer.component(CounterContainer.Props("First")),
+        CounterContainer.component(CounterContainer.Props("Second")),
+        CounterContainer.component(CounterContainer.Props("Third")),
         <.hr(),
         <.div(
           s"Total Count: ", state.sum
