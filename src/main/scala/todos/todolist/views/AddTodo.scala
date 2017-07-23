@@ -1,21 +1,30 @@
 package todos.todolist.views
 
-import counter.store.CounterStoreActions
-import japgolly.scalajs.react.{Callback, ScalaComponent}
 import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import org.scalajs.dom.html
 
 object AddTodo {
+  var inputElement:html.Input = _
   val component = ScalaComponent.builder[Unit]("No Args")
-    .render { _ =>
+      .render_P { props =>
       <.div(
         ^.className := "add-todo",
         <.form(
-          ^.onSubmit --> Callback {
+          ^.onSubmit ==> { event =>
+            Callback {
+              event.preventDefault()
+              val input = AddTodo.inputElement
+              if (!input.value.trim().isEmpty) {
+                props.onAdd(input.value)
+                input.value = ""
+              }
+            }
           },
           <.input(
             ^.className := "new-todo",
-          ).ref {input =>
-
+          ).ref { input =>
+            AddTodo.inputElement = input
           },
           <.button(
             ^.className := "add-btn",
