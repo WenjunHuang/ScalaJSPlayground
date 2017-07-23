@@ -7,8 +7,10 @@ import org.scalajs.dom._
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 
+import todos.todolist.AddTodoAction
+
 @JSExportTopLevel("Hello")
-object Hello extends JSApp with Greeting {
+object Hello extends JSApp {
 
   override def main(): Unit = {
 //    CounterStore.DispatchToken = AppDispatcher.register(CounterStoreActions.counterActions)
@@ -17,16 +19,5 @@ object Hello extends JSApp with Greeting {
     val component = ControlPanel.component
     component().renderIntoDOM(document.getElementById("app"))
   }
-
-  @JSExport
-  def main(canvas: html.Canvas): Unit = {
-  }
-
-  def foo(): Unit = {
-    println("hello foo")
-  }
 }
 
-trait Greeting {
-  lazy val greeting: String = "hello"
-}
